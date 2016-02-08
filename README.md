@@ -1,6 +1,12 @@
 # searchjs
 A complete JavaScript-based search solution.
 
+# Implemented features:
+
+- Index a collection of text files
+- Single keyword queries
+
+
 # Roadmap
 
 ## Indexer
@@ -17,4 +23,11 @@ add each word to the word -> file index
 
 ## Searcher
 
+- query sequence matching
+- phrase matching
+- Boolean queries
 - rank results based on relevance
+
+## Presentation Layer
+
+- Highlight matches in the results summary.

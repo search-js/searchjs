@@ -16,6 +16,7 @@
   "author": "Ian Read <ianharveyread@gmail.com>",
   "license": "GPL-3.0",
   "dependencies": {
+    "async": "^1.5.2",
     "normalize-for-search": "^1.2.0",
     "string": "^3.3.1"
   }
