@@ -6,28 +6,35 @@ A complete JavaScript-based search solution.
 - Index a collection of text files
 - Single keyword queries
 
-
 # Roadmap
 
-## Indexer
+## Example site
 
-create word -> file index
-load file
-	extract all words
-add each word to the word -> file index
+- take a set of files and make them searchable with a simple web interface (easy).
+- provide a feedback form for suggestions (easy).
 
-### Todo:
+## Search Index
 
-- apply weighting to titles.
-- phrase matching.
+- easy integration with other data sources to be able to easily push content into the search index (depends...). 
+- apply weighting to titles (medium).
+- richer lexical parsing
+- synonym database (important to factor this into the ranking criteria)
+- richer document representation (i.e. ability to differientiate title values from body content, and ability to fine tune the relevance).
+- integration of non-text metrics (i.e. factor the ranking on the publication date, page views, other fields).
+
+## API entry points
+
+- ability to push content to the index via the API (easy).
+- search results via the API (easy).
 
 ## Searcher
 
-- query sequence matching
-- phrase matching
-- Boolean queries
-- rank results based on relevance
+- query sequence matching (easy)
+- phrase matching (i.e. "Match this complete phrase ONLY" queries) (easy)
+- Boolean queries (medium)
+- rank results based on relevance (easy/medium)
+- Redis backend (*SHOULD* be easy)
 
 ## Presentation Layer
 
-- Highlight matches in the results summary.
+- Highlight matches in the results summary (fiddly).
