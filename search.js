@@ -17,12 +17,11 @@ searcher
 - rank results based on relevance
 
 
-
 */
-
 var SearchIndex = require('./search-index');
 var Indexer = require('./indexer');
-var TextAnalyser = require('./text-analyser');
+var LexicalAnalyzer = require('lexical-analyzer');
+var analyzer = new LexicalAnalyzer();
 
 var filenames = [
 	'./example/sample-files/katushas-eduard-vorganov-provisionally-suspended-by-uci-for-doping-violation.txt',
@@ -30,7 +29,6 @@ var filenames = [
 ];
 
 var indexer = new Indexer();
-var textAnalyser = new TextAnalyser();
 
 /**
 
@@ -47,7 +45,7 @@ desirable JSON structure for the search index:
 
 */
 
-var query = 'doping';
+var query = 'Tour de France';
 
 /*indexer.createIndex( path, function( err, index ){
 
@@ -56,7 +54,7 @@ var query = 'doping';
 
 });*/
 
-indexer.createIndexFromFiles( filenames, textAnalyser, function( err, index ){
+indexer.createIndexFromFiles( filenames, analyzer, function( err, index ){
 	
 	var fs = require('fs');
 	fs.writeFile("searchindex.json", JSON.stringify(index), function(err) {
@@ -66,11 +64,11 @@ indexer.createIndexFromFiles( filenames, textAnalyser, function( err, index ){
 	    console.log("The file was saved!");
 	}); 
 
-
 	//console.log( index );
+	index.query( query, function(err, queryResult){
 
-	var queryResult = index.query( query );
+		console.log( "Results", queryResult ); 
 
-	console.log( "Results", queryResult ); 
+	} );
 
 });

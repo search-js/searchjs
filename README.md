@@ -32,6 +32,7 @@ A complete JavaScript-based search solution.
 - query sequence matching (easy)
 - phrase matching (i.e. "Match this complete phrase ONLY" queries) (easy)
 - Boolean queries (medium)
+- "Did you mean..." spell suggestor.
 - rank results based on relevance (easy/medium)
 - Redis backend (*SHOULD* be easy)
 

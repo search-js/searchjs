@@ -20,28 +20,30 @@ searcher
 */
 var fs = require('fs');
 var async = require('async');
-var normalizeForSearch = require('normalize-for-search');
-var S = require('string');
+//var normalizeForSearch = require('normalize-for-search');
+//var S = require('string');
 var SearchIndex = require('./search-index');
-
 
 function Indexer(){
 
 }
 
-Indexer.prototype.ingestText = function( docId, s, textAnalyser, searchIndex, callback ){
+Indexer.prototype.ingestText = function( docId, s, analyzer, searchIndex, callback ){
 
-	var words = textAnalyser.normalize( s );
+	analyzer.analyze( s, function( err, words ){
+	
+		for( var i = 0; i < words.length; i++ ){
+			searchIndex.addWord( words[i], docId, i );
+		}
 
-	for( var i = 0; i < words.length; i++ ){
-		searchIndex.addWord( words[i], docId, i );
-	}
+		callback(null);
 
-	callback(null);
+	} );
+
 
 }
 
-Indexer.prototype.extractFile = function( filename, textAnalyser, searchIndex, callback ){
+Indexer.prototype.extractFile = function( filename, analyzer, searchIndex, callback ){
 
 	var that = this;
 
@@ -52,19 +54,19 @@ Indexer.prototype.extractFile = function( filename, textAnalyser, searchIndex, c
 	    }
 
 	    // ingest the words into the index, then call get the words from the text analyser
-	    that.ingestText( filename, s, textAnalyser, searchIndex, callback );
+	    that.ingestText( filename, s, analyzer, searchIndex, callback );
 
 	});
 }
 
-Indexer.prototype.createIndexFromFiles = function( filenames, textAnalyser, indexedCallback ){
+Indexer.prototype.createIndexFromFiles = function( filenames, analyzer, indexedCallback ){
 
-	var searchIndex = new SearchIndex();
+	var searchIndex = new SearchIndex(analyzer);
 	var that = this;
 	
 	async.each( filenames,
 		function ( filename, callback ){
-			that.extractFile( filename, textAnalyser, searchIndex, callback );
+			that.extractFile( filename, analyzer, searchIndex, callback );
 		},
 		// final callback, once all has been completed - pass the
 		// searchIndex back to the process flow.
