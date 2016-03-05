@@ -4,7 +4,9 @@ A complete JavaScript-based search solution.
 # Implemented features:
 
 - Index a collection of text files
-- Single keyword queries
+- Multiword queries
+- Stemming
+- Stop word removal
 
 # Roadmap
 
@@ -29,7 +31,6 @@ A complete JavaScript-based search solution.
 
 ## Searcher
 
-- query sequence matching (easy)
 - phrase matching (i.e. "Match this complete phrase ONLY" queries) (easy)
 - Boolean queries (medium)
 - "Did you mean..." spell suggestor.
