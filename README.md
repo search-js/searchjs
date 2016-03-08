@@ -7,6 +7,7 @@ A complete JavaScript-based search solution.
 - Multiword queries
 - Stemming
 - Stop word removal
+- Basic relevance sorting (very basic right now)
 
 # Roadmap
 
@@ -14,6 +15,12 @@ A complete JavaScript-based search solution.
 
 - take a set of files and make them searchable with a simple web interface (easy).
 - provide a feedback form for suggestions (easy).
+
+## Dictionary/Word Index
+
+- basic implementation
+- persistence
+- performance measures
 
 ## Search Index
 
@@ -23,6 +30,8 @@ A complete JavaScript-based search solution.
 - synonym database (important to factor this into the ranking criteria)
 - richer document representation (i.e. ability to differientiate title values from body content, and ability to fine tune the relevance).
 - integration of non-text metrics (i.e. factor the ranking on the publication date, page views, other fields).
+
+
 
 ## API entry points
 
