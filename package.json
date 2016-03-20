@@ -20,6 +20,7 @@
     "normalize-for-search": "^1.2.0",
     "string": "^3.3.1",
     "lexical-analyzer": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "node-uuid": "*"
   }
 }

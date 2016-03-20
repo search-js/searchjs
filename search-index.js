@@ -38,45 +38,44 @@ SearchIndex.prototype.findRawMatches = function( words, callback ){
 
   var matches = [];
 
+
   // find all the initial matches
   for( var i = 0; i < words.length; i++ ){
 
-  	//console.log("-------------------------------------------" );
-    //console.log("search for word " + words[i] );
+    // find all the fields..
+    for (field in this.index) {
 
-    // create element, if it doesn't exist
-    if( this.index.hasOwnProperty( words[i] ) ){
+      // create element, if it doesn't exist
+      if( this.index[ field ].hasOwnProperty( words[i] ) ){
 
-      var word_i = words[i];
+        var word_i = words[i];
 
-      // create the occurance entry
-      for( var j = 0; j < this.index[ word_i ].length; j++ ){
+        // create the occurance entry
+        for( var j = 0; j < this.index[ field ][ word_i ].length; j++ ){
 
-        // document match
-        var docId = this.index[ word_i ][ j ]['docId'];
+          // document match
+          var docId = this.index[ field ][ word_i ][ j ]['docId'];
 
-        //console.log("Found " + word_i + " in ", docId );
-
-        // in the matrix
-        if( !matches.hasOwnProperty( docId ) ){
-          matches[ docId ] = new SearchResult(docId);
+          // in the matrix
+          if( !matches.hasOwnProperty( docId ) ){
+            matches[ docId ] = new SearchResult(docId);
  //         matches[ docId ]['matchingWords'] = {};
    //       matches[ docId ]['rawCountTotal'] = 0;
+          }
+
+          // add the doc/word count field, if it doesn't exist
+          if( !matches[docId]['matchingWords'].hasOwnProperty( word_i ) ){
+            matches[ docId ]['matchingWords'][ word_i ] = 0;
+          };
+
+          //console.log( matches );
+
+          // increase the count for the ith word, in the doc
+          matches[ docId ]['matchingWords'][ word_i ]++;
+          matches[ docId ]['rawCountTotal']++;
+
         }
-
-        // add the doc/word count field, if it doesn't exist
-        if( !matches[docId]['matchingWords'].hasOwnProperty( word_i ) ){
-          matches[ docId ]['matchingWords'][ word_i ] = 0;
-        };
-
-        //console.log( matches );
-
-        // increase the count for the ith word, in the doc
-        matches[ docId ]['matchingWords'][ word_i ]++;
-        matches[ docId ]['rawCountTotal']++;
-
       }
-
     }
   
   }
@@ -86,15 +85,20 @@ SearchIndex.prototype.findRawMatches = function( words, callback ){
 }
 
 
-SearchIndex.prototype.addWord = function( word, documentId, position ){
+SearchIndex.prototype.addWord = function( word, field, documentId, position ){
 
   // create element, if it doesn't exist
-  if( !this.index.hasOwnProperty( word ) ){
-    this.index[ word ] = [];
+  if( !this.index.hasOwnProperty( field ) ){
+    this.index[ field ] = {};
+  }
+  
+  // create element, if it doesn't exist
+  if( !this.index[ field ].hasOwnProperty( word ) ){
+    this.index[ field ][ word ] = [];
   }
   
   // add word/document/position occurance to the index
-  this.index[ word ].push( {'docId': documentId, 'p': position} );
+  this.index[ field ][ word ].push( {'docId': documentId, 'p': position} );
 
 }
 

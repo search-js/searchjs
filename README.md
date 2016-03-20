@@ -21,6 +21,7 @@ A complete JavaScript-based search solution.
 - basic implementation
 - persistence
 - performance measures
+- ability to add additional stop words
 
 ## Search Index
 
